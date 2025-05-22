@@ -1,0 +1,63 @@
+1. compose.yml 
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - ./sampledata.archive:/sampledata.archive
+
+2. sudo docker compose up -d pour démarrer le services
+
+
+3. sudo docker compose exec mongo bash pour aller dans le shell
+
+
+4. une fois dans le shell : mongosh -u root -p example pour utiliser mongosh
+
+
+5. télécharger sampledata https://download.restheart.com/sampledata.archive et le mettre dans sampledata.archive
+
+
+6. CTRL+D pour revenir en arrière et faire mongorestore -u root -p example --archive=sampledata.archive/sampledata.archive
+
+
+7. utiliser mongosh (donc mongosh -u root -p example une fois dans le shell de mongo)
+
+
+8. show databases pour voir les BDD, si tout va bien on y verra sample_airbnb, analytics, geospatial etc
+
+
+9. use sample_mflix pour se positionner dessus
+
+
+10. show collections
+
+
+11. db.movies.find() pour voir les films
+
+
+12. db.movies.find({ title: /Hand/ }) pour voir les films qui contiennent "Hand" dans leur titre
+
+
+13. db.movies.find({ title: /Hand/ }, {title:1, _id:0}) pour ne montrer que le titre (on doit mettre _id en 0 car il se montrera par défaut sinon)
+
+
+14. db.movies.findOne() pour afficher le premier film
+
+
+15. db.movies.findOne({ title: /Hand/ }) pour afficher le premier film qui contient "Hand"
+
+
+16. db.movies.insertOne({ title: "No country for old men", year: 2007}) pour insérer un élément
+
+
+17. db.movies.insertMany([{ title: "Fargo", yeart: 1996}, { title : "The Big Lebowski", year: 1998 }, ]) pour insérier plusieurs éléments
+
+
