@@ -63,5 +63,55 @@ Pour se connecter via VSCODE et non pas par le shell : mongodb://root:example@lo
 17. db.movies.insertMany([{ title: "Fargo", yeart: 1996}, { title : "The Big Lebowski", year: 1998 }, ]) pour insérier plusieurs éléments
 
 
+18. db.movies.deleteOne( { title: "Fargo ", year: 1996 }) pour supprimer une ligne
+
+
+
+19.  db.movies.deleteMany( { title: "Fargo", year: 1996 }) pour supprimer plusieurs lignes
+
+
+
+20. db.users.countDocuments() pour compter le nombre d'utilisateurs
+
+
+
+21. "Recherchez tous les utilisateurs admins en utilisant { role: "admin" }." 
+db.users.find({role: "admin"});
+
+
+22. Utilisez un opérateur $in, par exemple pour rechercher tous les utilisateurs dont le rôle est soit admin soit editor.
+db.users.find({role: { $in: ["admin", "editor"]} });
+
+
+23. Utilisez .sort() pour trier les documents par ordre alphabétique du champ name.
+db.users.find().sort({name: 1});          -1 au lieu 1 pour ordre inverse Z -> A 
+
+
+24.Limitez les résultats à 2 documents avec .limit(2).
+db.users.find().limit(2);
+db.users.find().sort({name:1}).limit(2);
+
+
+25. Récupérez uniquement le champ name et _id, sans l’e-mail ni le rôle.
+db.users.find({}, {name:1});
+
+
+
+26. Recherchez tous les utilisateurs dont le nom contient la lettre "a" et qui ont un rôle différent de "viewer". Piste : utilisez $regex et $ne.
+db.users.find({name : /a/i , role: {$ne: "viewer"}});
+
+
+
+27. Sur la collection users, créez un index sur le champ email :
+db.users.createIndex({ email: 1 }, { unique: true });
+
+
+28. Utilisez la méthode .explain() sur une requête pour voir si l’index est utilisé :
+db.users.find({ email: "alice@example.com" }).explain("executionStats");
+
+
+29. Créez un index composé sur role et name, dans cet ordre :
+db.users.createIndex({ role: 1, name: 1 });
+
 
 
