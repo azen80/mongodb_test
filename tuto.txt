@@ -13,11 +13,13 @@ services:
     volumes:
       - ./sampledata.archive:/sampledata.archive
 
+
+
 2. sudo docker compose up -d pour démarrer le services
 
 
 3. sudo docker compose exec mongo bash pour aller dans le shell
-
+Pour se connecter via VSCODE et non pas par le shell : mongodb://root:example@localhost:27017/?authSource=admin
 
 4. une fois dans le shell : mongosh -u root -p example pour utiliser mongosh
 
@@ -59,5 +61,7 @@ services:
 
 
 17. db.movies.insertMany([{ title: "Fargo", yeart: 1996}, { title : "The Big Lebowski", year: 1998 }, ]) pour insérier plusieurs éléments
+
+
 
 
